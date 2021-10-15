@@ -4,13 +4,16 @@ function Juego(){
     this.partidas={};
 
     this.agregarJugador=function(nick){
+        var res={"nick":-1};
         if (!this.usuarios[nick]){
             var jugador= new Jugador(nick,this);
             this.usuarios[nick]=jugador;
+            res={"nick":nick};
         }
         else{
-            console.log("El nick está en uso");
+            console.log("El nick "+nick+" está en uso");
         }
+        return res;
     }
 
     this.crearPartida=function(nick,numJug){
@@ -368,22 +371,24 @@ function Comodin4(valor){
 }
 
 
-var juego,partida,ju1,ju2,ju3;
+// var juego,partida,ju1,ju2,ju3;
 
-function Prueba(){
-    juego =new Juego();
-    juego.agregarJugador("ana");
-    ju1=juego.usuarios["ana"];
-    ju1.crearPartida(3);
-    juego.agregarJugador("pepe");
-    ju2=juego.usuarios["pepe"];
-    ju2.unirAPartida(ju1.codigoPartida);
-    juego.agregarJugador("luis");
-    ju3=juego.usuarios["luis"];
-    ju3.unirAPartida(ju1.codigoPartida);
-    partida=juego.partidas[ju1.codigoPartida];
-    ju1.manoInicial();
-    ju2.manoInicial();
-    ju3.manoInicial();
-    //partida.cartaInicial();
-}
+// function Prueba(){
+//     juego =new Juego();
+//     juego.agregarJugador("ana");
+//     ju1=juego.usuarios["ana"];
+//     ju1.crearPartida(3);
+//     juego.agregarJugador("pepe");
+//     ju2=juego.usuarios["pepe"];
+//     ju2.unirAPartida(ju1.codigoPartida);
+//     juego.agregarJugador("luis");
+//     ju3=juego.usuarios["luis"];
+//     ju3.unirAPartida(ju1.codigoPartida);
+//     partida=juego.partidas[ju1.codigoPartida];
+//     ju1.manoInicial();
+//     ju2.manoInicial();
+//     ju3.manoInicial();
+//     //partida.cartaInicial();
+// }
+
+module.exports.Juego=Juego;

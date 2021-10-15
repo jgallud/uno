@@ -1,0 +1,23 @@
+{
+  "name": "uno",
+  "version": "1.0.0",
+  "description": "Trabajo de la asignatura de Procesos Ingeniería del Software del curso 2021-2022",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine-node servidor"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jgallud/uno.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jgallud/uno/issues"
+  },
+  "homepage": "https://jgallud.github.io/uno/",
+  "dependencies": {
+    "express": "^4.17.1",
+    "jasmine-node": "^3.0.0"
+  }
+}

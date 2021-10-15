@@ -1,8 +1,10 @@
+var modelo=require("./modelo.js");
+
 describe("El juego del UNO...", function() {
   var juego;
 
   beforeEach(function() {
-    juego=new Juego();
+    juego=new modelo.Juego();
     juego.agregarJugador("ana");
     juego.agregarJugador("pepe");
     juego.agregarJugador("luis");
