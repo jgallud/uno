@@ -4,8 +4,6 @@ function ClienteRest(){
 			//se ejecuta cuando conteste el servidor
 			console.log(data);
 		})
-		//sigue la ejecución sin esperar
-		// mostrar una ruleta
 	}
 
 	this.crearPartida=function(num,nick){
@@ -13,8 +11,9 @@ function ClienteRest(){
 			console.log(data);
 		})
 	}
-
-	//unir partida
-	//lista de partidas
-
+	this.obtenerListaPartidas=function(){
+		$.getJSON("/obtenerListaPartidas",function(data){
+			console.log(data);
+		})
+	}
 }
