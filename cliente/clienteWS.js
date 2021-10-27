@@ -17,6 +17,9 @@ function ClienteWS(){
 	this.manoInicial=function(){
 		this.socket.emit("manoInicial",this.nick);
 	}
+	this.jugarCarta=function(num){
+		this.socket.emit("jugarCarta",this.nick,num);
+	}
 	
 	//servidor WS del cliente	
 	this.servidorWSCliente=function(){
@@ -33,11 +36,15 @@ function ClienteWS(){
 			cli.codigo=data.codigo;
 		});
 		this.socket.on("pedirCartas",function(data){
+			//console.log("pedirCartas");
 			cli.manoInicial();
 		});
 		this.socket.on("mano",function(data){
 			console.log(data);
-			cli.meToca();
+			//cli.meToca();
+		});
+		this.socket.on("turno",function(data){
+			console.log(data);
 		})
 	}
 

@@ -111,6 +111,41 @@ describe("El juego del UNO...", function() {
       expect(partida.turno.nick).toEqual("ana");
       expect(partida.direccion.nombre).toEqual("derecha");
       expect(partida.cartaActual).toBeDefined();
-    })
+    });
+
+    describe("Ana crea una partida de 2 jugadores, Pepe se une, reparten cartas...", function() {
+        var ju2;
+
+        beforeEach(function(){
+          ju2=juego.usuarios["pepe"];
+          ju2.unirAPartida(partida.codigo);
+          ju1.manoInicial();
+          ju2.manoInicial();
+        });
+
+        it("Ana juega carta",function(){
+          partida.cartaActual.color=ju1.mano[0].color;
+          ju1.jugarCarta(0);
+          expect(partida.turno.nick).toEqual("pepe");
+          ju2.pasarTurno();
+          expect(partida.turno.nick).toEqual("ana");
+          partida.cartaActual.color=ju1.mano[0].color;
+          ju1.jugarCarta(0);
+          expect(partida.turno.nick).toEqual("pepe");
+          ju2.pasarTurno();
+          expect(partida.turno.nick).toEqual("ana");
+          partida.cartaActual.color=ju1.mano[0].color;
+          ju1.jugarCarta(0);
+          ju2.pasarTurno();
+          expect(partida.fase.nombre).toEqual("final");
+        }); 
+
+        it("Ana roba 1 carta",function(){
+          expect(ju1.mano.length).toBe(3);
+          ju1.robar(1);
+          expect(ju1.mano.length).toBe(4);
+        })
+
+     });
   });
 });

@@ -30,7 +30,7 @@ function ServidorWS(){
 				console.log("Jugador "+nick +" se une a partida codigo: "+ju1.codigoPartida);
 				res.codigo=ju1.codigoPartida;
 				if (res.codigo!=-1){
-					socket.join(res.codigo);
+					socket.join(codigo);
 					var partida=juego.partidas[codigo];
 					cli.enviarAlRemitente(socket,"unidoAPartida",res);
 					if (partida.fase.nombre=="jugando"){
@@ -46,6 +46,23 @@ function ServidorWS(){
 				var ju1=juego.usuarios[nick];
 				ju1.manoInicial();
 				cli.enviarAlRemitente(socket,"mano",ju1.mano);
+				var codigo=ju1.codigoPartida;
+				var partida=juego.partidas[codigo];
+				var nickTurno=partida.turno.nick;
+				cli.enviarAlRemitente(socket,"turno",{"turno":nickTurno,"cartaActual":partida.cartaActual});
+			});
+
+			socket.on("jugarCarta",function(nick,num){
+				var ju1=juego.usuarios[nick];
+				ju1.jugarCarta(num);
+				cli.enviarAlRemitente(socket,"mano",ju1.mano);
+				var codigo=ju1.codigoPartida;
+				var partida=juego.partidas[codigo];
+				var nickTurno=partida.turno.nick;
+				cli.enviarAlRemitente(socket,"turno",{"turno":nickTurno,"cartaActual":partida.cartaActual});
+				if (partida.fase.nombre=="final"){
+						cli.enviarATodos(io,codigo,"final",{"ganador":nickTurno});
+				}				
 			});
 		})
 	}
