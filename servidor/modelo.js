@@ -19,13 +19,15 @@ function Juego(){
     this.crearPartida=function(nick,numJug){
         var codigo="patata";
         var jugador=this.usuarios[nick];
-        codigo=this.obtenerCodigo();
-        while (this.partidas[codigo]){
+        var partida;
+        if (numJug>=2 && numJug<=8){
             codigo=this.obtenerCodigo();
-        };
-        var partida=new Partida(codigo,jugador,numJug);
-        this.partidas[codigo]=partida;
-
+            while (this.partidas[codigo]){
+                codigo=this.obtenerCodigo();
+            };
+            partida=new Partida(codigo,jugador,numJug);
+            this.partidas[codigo]=partida;
+        }
         return partida;
     }
 
@@ -83,9 +85,11 @@ function Jugador(nick,juego){
     }
     this.robar=function(num){
         var partida=this.obtenerPartida(this.codigoPartida);
-        var robadas=partida.dameCartas(num);
-        //var tmp=this.mano;
-        this.mano=this.mano.concat(robadas);
+        if (partida.turno.nick==this.nick){
+            var robadas=partida.dameCartas(num);
+            //var tmp=this.mano;
+            this.mano=this.mano.concat(robadas);
+        }
     }
     this.manoInicial=function(){
         var partida=this.obtenerPartida(this.codigoPartida);
@@ -101,8 +105,10 @@ function Jugador(nick,juego){
     }
     this.jugarCarta=function(num){
         var carta=this.mano[num];
-        var partida=this.obtenerPartida(this.codigoPartida);
-        partida.jugarCarta(carta,this.nick);
+        if (carta){
+            var partida=this.obtenerPartida(this.codigoPartida);
+            partida.jugarCarta(carta,this.nick);
+        }
     }
     this.quitarCarta=function(carta){
         var partida=this.obtenerPartida(this.codigoPartida);

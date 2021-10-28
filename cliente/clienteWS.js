@@ -20,6 +20,12 @@ function ClienteWS(){
 	this.jugarCarta=function(num){
 		this.socket.emit("jugarCarta",this.nick,num);
 	}
+	this.robarCarta=function(num){
+		this.socket.emit("robarCarta",this.nick,num);
+	}
+	this.pasarTurno=function(){
+		this.socket.emit("pasarTurno",this.nick);
+	}
 	
 	//servidor WS del cliente	
 	this.servidorWSCliente=function(){
@@ -44,6 +50,9 @@ function ClienteWS(){
 			//cli.meToca();
 		});
 		this.socket.on("turno",function(data){
+			console.log(data);
+		});
+		this.socket.on("fallo",function(data){
 			console.log(data);
 		})
 	}
